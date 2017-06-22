@@ -4,7 +4,7 @@ function click_cover(th){
 	childs=par.children;
 	//alert(childs.length);
 	//alert(childs[1].childNodes[7].firstChild.className);
-	childs[0].childNodes[7].firstChild.className='fa fa-square-o symb';
+	//childs[0].childNodes[7].firstChild.className='fa fa-square-o symb';
 	//childs[1].className="fa fa-square-o symb";
 	//$("#testas").text("sdsd");
 	//alert (elem.className);
@@ -19,10 +19,28 @@ function click_cover(th){
 
 function click_remove(th){
 	//alert('remov');
+	grand=th.parentElement.parentElement;
 	par=th.parentElement;
-	par.style.opacity=0;
+	childs=par.children;
+	checked=childs[3].firstChild.className;
+	elem=th.firstChild;
+	par.style.opacity=.3;
 	par.style.width=0;
-	setTimeout(function(){ par.remove(); }, 500);
+	par.style.marginLeft=0;
+	par.style.marginRight=0;
+	par.style.padding=0;
+	//alert(checked);
+	if(checked=='fa fa-check-square-o symb'){
+		//alert('checked');
+		var add=true;
+	}
+	setTimeout(function(){
+		par.remove(); 
+		if(add==true){
+			//alert(grand.children[1].children[3].firstChild.className);
+			grand.children[0].children[3].firstChild.className="fa fa-check-square-o symb";
+			}
+		}, 500);
 	
 }
 
