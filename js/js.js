@@ -16,3 +16,17 @@ function click_cover(th){
 		return;
 		}
 }
+
+function click_remove(th){
+	//alert('remov');
+	par=th.parentElement;
+	par.style.opacity=0;
+	par.style.width=0;
+	setTimeout(function(){ par.remove(); }, 500);
+	
+}
+
+function click_turn(th){
+	alert('turn');
+	
+}

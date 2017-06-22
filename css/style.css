@@ -21,6 +21,9 @@
 	margin:10px;
 	display:inline-block;
 	vertical-align:top;
+	
+	-webkit-transition: opacity 0.5s, width 0.5s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.5s, width 0.5s;
 }
 
 .mygt{
