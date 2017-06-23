@@ -20,6 +20,7 @@
 	margin:10px;
 	display:inline-block;
 	vertical-align:top;
+	border-radius:5px;
 	
 	-webkit-transition: opacity 0.5s, width 0.5s; /* For Safari 3.1 to 6.0 */
     transition: opacity 0.5s, width 0.5s;
@@ -72,4 +73,5 @@
 .img {
 	width:150px;
 	height:120px;
+	border-radius:5px;
 }

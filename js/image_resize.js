@@ -1,6 +1,6 @@
 images1=[];
 images2=[];
-var nr=-1;
+var nr=0;
 function resize(th){
 	//alert(th);
 	var files=th.files;
@@ -49,9 +49,7 @@ function resize(th){
 				ctx.font = "bold 18pt Arial";
 				ctx.fillStyle = "rgba(100, 100, 150, 0.3)";
 				ctx.fillText("Easyads.ie",canvas.width-130,canvas.height-10);
-			  var imag2=document.getElementById("images-div");
-			  //images2.appendChild(canvas);
-			  		
+
 			
 			canvas.toBlob(function (blob) {
 				images1.push(blob);
@@ -88,7 +86,6 @@ function resize(th){
 				ctx.fillStyle = "rgba(100, 100, 150, 0.3)";
 				ctx.fillText("Easyads.ie",canvas.width-130,canvas.height-10);
 			  var imag2=document.getElementById("images-div");
-			  //imag2.appendChild(canvas);
 			  		
 			
 			canvas.toBlob(function (blob) {
@@ -100,6 +97,7 @@ function resize(th){
 		
 			var img_div=document.createElement('div');
 			img_div.className="img-div";
+			img_div.id=nr;
 			
 			var mygt_left=document.createElement('div');
 			mygt_left.className="mygt mygt-left";
@@ -110,30 +108,27 @@ function resize(th){
 			mygt_right.className="mygt mygt-right";
 			mygt_right.onclick=function() { click_remove(this); };
 			mygt_right.innerHTML='<i class="fa fa-times symb" aria-hidden="true"></i>';
-			
+			//alert(nr);
 			var mygt_left_bottom=document.createElement('div');
 			mygt_left_bottom.className="mygt mygt-left-bottom";
 			mygt_left_bottom.onclick=function() { click_cover(this); };
-			mygt_left_bottom.innerHTML='<i class="fa fa-square-o symb" aria-hidden="true"></i>';
+			var pazymetas="";
+			if(nr==0){pazymetas="check-";}
+			mygt_left_bottom.innerHTML='<i class="fa fa-'+pazymetas+'square-o symb" aria-hidden="true"></i>';
 			
 			var img=document.createElement('img');
 			img.src=dataurl;
-			nr++;
 			img.id=nr;
-			img.className="thumbnail2";
-			img.width="150";
-			img.height="120";
+			img.className="img";
 			img.onclick=function() { rotate(this); };
 			
-			//imag2.appendChild(img_div);
-			//alert(imag2.children.length);
 			imag2.insertBefore(img_div,imag2.children[imag2.children.length-1]);
 			img_div.appendChild(img);
 			img_div.appendChild(mygt_left);
 			img_div.appendChild(mygt_right);
 			img_div.appendChild(mygt_left_bottom);
-	
-			 //alert(request.readyState);
+			
+			nr++;
             }
             // e.target.result is a dataURL for the image
           image.src = e.target.result;
@@ -157,4 +152,16 @@ function dataURLtoBlob(dataurl) {
         u8arr[n] = bstr.charCodeAt(n);
     }
     return new Blob([u8arr], {type:mime});
+}
+
+function save(){
+	$("ol").empty();
+	//alert(images1.length);
+	for(i=0;i<images1.length;i++){
+		blobToDataURL(images1[i], function(dataURL){
+			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		});
+		
+	}
+	
 }
