@@ -98,14 +98,40 @@ function resize(th){
 			
 			var dataurl=canvas.toDataURL('image/jpeg', 0.8);
 		
+			var img_div=document.createElement('div');
+			img_div.className="img-div";
+			
+			var mygt_left=document.createElement('div');
+			mygt_left.className="mygt mygt-left";
+			mygt_left.onclick=function() { click_rotate(this); };
+			mygt_left.innerHTML='<i class="fa fa-refresh symb" aria-hidden="true"></i>';
+			
+			var mygt_right=document.createElement('div');
+			mygt_right.className="mygt mygt-right";
+			mygt_right.onclick=function() { click_remove(this); };
+			mygt_right.innerHTML='<i class="fa fa-times symb" aria-hidden="true"></i>';
+			
+			var mygt_left_bottom=document.createElement('div');
+			mygt_left_bottom.className="mygt mygt-left-bottom";
+			mygt_left_bottom.onclick=function() { click_cover(this); };
+			mygt_left_bottom.innerHTML='<i class="fa fa-square-o symb" aria-hidden="true"></i>';
+			
 			var img=document.createElement('img');
 			img.src=dataurl;
 			nr++;
 			img.id=nr;
 			img.className="thumbnail2";
-			img.width="200";
+			img.width="150";
+			img.height="120";
 			img.onclick=function() { rotate(this); };
-			imag2.appendChild(img);
+			
+			//imag2.appendChild(img_div);
+			//alert(imag2.children.length);
+			imag2.insertBefore(img_div,imag2.children[imag2.children.length-1]);
+			img_div.appendChild(img);
+			img_div.appendChild(mygt_left);
+			img_div.appendChild(mygt_right);
+			img_div.appendChild(mygt_left_bottom);
 	
 			 //alert(request.readyState);
             }

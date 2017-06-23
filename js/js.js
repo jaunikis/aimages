@@ -44,7 +44,7 @@ function click_remove(th){
 	
 }
 
-function click_turn(th){
+function click_rotate(th){
 	alert('turn');
 	
 }
