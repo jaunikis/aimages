@@ -7,6 +7,14 @@ function resize(th){
 	//alert(files.length);
 	for (var i = 0; i < files.length; i++) {
 		
+		getOrientation(files[i], function(orientation) {
+			ori=orientation;
+			//alert('orientation: ' + ori);
+			//if(orientation>1){
+			//	alert('orientation: ' + orientation);	
+			//}
+		});
+		
 		//alert(files[i].name);
 		var file=files[i];
 		// a seed img element for the FileReader
@@ -20,77 +28,105 @@ function resize(th){
       reader.onload = (function(image) {
         return function(e) {
           image.onload = function() { 
-			var	width = image.width;if(width<200){ alert('Image too small!');return;}
-			var	height = image.height;
-              
-              //alert(aImg.width);
-			  //bkctx.clearRect(0, 0, canvas.width, canvas.height);
+			width = image.width;if(width<200){ alert('Image too small!');return;}
+			height = image.height;
+            
 			 var canvas = document.createElement('canvas');
 				canvas.width=600;
 				canvas.height=450;
-				
-			if(width>height){
-				var ratio=width/height;
-				height=canvas.height;
-				width=Math.round(height*ratio);
-		}
-			if(height>width){
-				var ratio=height/width;
-				width=canvas.width;
-				height=Math.round(canvas.width*ratio);
-		}
-              //alert('width: '+width+'   height: '+height+image);
-			  //alert('canvas width: '+canvas.width+'   canvas height: '+canvas.height);
-			  ctx = canvas.getContext("2d");
-			  ctx.save();
-			  ctx.translate(canvas.width/2,canvas.height/2);
-			  ctx.drawImage(image,-width/2,-height/2,width,height);
-			  ctx.restore();
-				ctx.font = "bold 18pt Arial";
-				ctx.fillStyle = "rgba(100, 100, 150, 0.3)";
-				ctx.fillText("Easyads.ie",canvas.width-130,canvas.height-10);
-
 			
-			canvas.toBlob(function (blob) {
-				images1.push(blob);
-				//alert(images1[i-1]);
-			}, 'image/jpeg', 0.8);
+				//alert(ori);
+				if(ori==6){
+					var a=width;width=height;height=a;
+					var ratio=width/height;
+					if(ratio<=1.3333){
+						//alert('= or less');
+						width=canvas.width;
+						height=Math.round(width/ratio);
+					} else {
+						//alert('more');
+						height=canvas.height;
+						width=Math.round(height*ratio);
+					}
+					//alert('2. width:'+width+'  height:'+height);
+					ctx = canvas.getContext("2d");
+					ctx.save();
+					ctx.translate(canvas.width/2,canvas.height/2);
+					ctx.rotate(90*Math.PI/180);
+					ctx.drawImage(image,-height/2,-width/2,height,width);
+					ctx.restore();
+				}else{
+					var ratio=width/height;
+					if(ratio<=1.3333){
+						//alert('= or less');
+						width=canvas.width;
+						height=Math.round(width/ratio);
+					} else {
+						//alert('more');
+						height=canvas.height;
+						width=Math.round(height*ratio);
+					}
+					  //alert('width: '+width+'   height: '+height+image);
+					  ctx = canvas.getContext("2d");
+					  ctx.save();
+					  ctx.translate(canvas.width/2,canvas.height/2);
+					  if(ori==3){ctx.rotate(180*Math.PI/180);}
+					  ctx.drawImage(image,-width/2,-height/2,width,height);
+					  ctx.restore();
+				}//else
+					
+					canvas.toBlob(function (blob) {
+						images1.push(blob);
+						//alert(images1[i-1]);
+					}, 'image/jpeg', 0.8);
+				
 			 
 		//second image
 			var	width = image.width;
 			var	height = image.height;
-			var canvas = document.createElement('canvas');
-				canvas.width=1280;
-				canvas.height=960;
+			var canvas2 = document.createElement('canvas');
+				canvas2.width=1280;
+				canvas2.height=960;
 			
-			if(width>canvas.width){
+			//alert(ori);
+				
+			if(width>canvas2.width){
 				var ratio=width/height;
-				width=canvas.width;
+				width=canvas2.width;
 				height=Math.round(width/ratio);
 		}
-			if(height>canvas.height){
+			if(height>canvas2.height){
 				var ratio=height/width;
-				height=canvas.height;
+				height=canvas2.height;
 				width=Math.round(height/ratio);
 		}
-			canvas.width=width;
-			canvas.height=height;
+			if(ori==6){
+					//alert(ori);
+					canvas2.width=height;
+					canvas2.height=width;
+				}else
+				{
+					canvas2.width=width;
+					canvas2.height=height;
+				}
               //alert('width: '+width+'   height: '+height);
 			  //alert('canvas width: '+canvas.width+'   canvas height: '+canvas.height);
-			  ctx = canvas.getContext("2d");
+			  ctx = canvas2.getContext("2d");
 			  ctx.save();
-			  ctx.translate(canvas.width/2,canvas.height/2);
+			  ctx.translate(canvas2.width/2,canvas2.height/2);
+			  if(ori==6){ctx.rotate(90*Math.PI/180);}
+			  if(ori==3){ctx.rotate(180*Math.PI/180);}
 			  ctx.drawImage(image,-width/2,-height/2,width,height);
 			  ctx.restore();
-				ctx.font = "bold 18pt Arial";
-				ctx.fillStyle = "rgba(100, 100, 150, 0.3)";
-				ctx.fillText("Easyads.ie",canvas.width-130,canvas.height-10);
+				//ctx.font = "bold 18pt Arial";
+				//ctx.fillStyle = "rgba(100, 100, 150, 0.3)";
+				//ctx.fillText("Easyads.ie",canvas2.width-130,canvas2.height-10);
 			  var imag2=document.getElementById("images-div");
 			  		
 			
-			canvas.toBlob(function (blob) {
+			canvas2.toBlob(function (blob) {
 				images2.push(blob);
-				//alert(images2[i-1]);
+				//alert(blob);
 			}, 'image/jpeg', 0.8);
 			
 			var dataurl=canvas.toDataURL('image/jpeg', 0.8);
@@ -163,5 +199,44 @@ function save(){
 		});
 		
 	}
-	
 }
+
+function save2(){
+	$("ol").empty();
+	//alert(images1.length);
+	for(i=0;i<images2.length;i++){
+		blobToDataURL(images2[i], function(dataURL){
+			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		});
+		
+	}
+}
+
+function getOrientation(file, callback) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+
+    var view = new DataView(e.target.result);
+    if (view.getUint16(0, false) != 0xFFD8) return callback(-2);
+    var length = view.byteLength, offset = 2;
+    while (offset < length) {
+      var marker = view.getUint16(offset, false);
+      offset += 2;
+      if (marker == 0xFFE1) {
+        if (view.getUint32(offset += 2, false) != 0x45786966) return callback(-1);
+        var little = view.getUint16(offset += 6, false) == 0x4949;
+        offset += view.getUint32(offset + 4, little);
+        var tags = view.getUint16(offset, little);
+        offset += 2;
+        for (var i = 0; i < tags; i++)
+          if (view.getUint16(offset + (i * 12), little) == 0x0112)
+            return callback(view.getUint16(offset + (i * 12) + 8, little));
+      }
+      else if ((marker & 0xFF00) != 0xFF00) break;
+      else offset += view.getUint16(offset, false);
+    }
+    return callback(-1);
+  };
+  reader.readAsArrayBuffer(file);
+}
+
