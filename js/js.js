@@ -142,9 +142,58 @@ function click_rotate(th){
 			//	});
 			}, 'image/jpeg', 0.8);
 	};//image onload
-			});
-	
-	
-	
-	
+			});	
+}
+
+
+function show1(){
+	$("ol").empty();
+	//alert(images1.length);
+	for(i=0;i<images1.length;i++){
+		blobToDataURL(images1[i], function(dataURL){
+			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		});
+		
+	}
+}
+
+function show2(){
+	$("ol").empty();
+	//alert(images1.length);
+	for(i=0;i<images2.length;i++){
+		blobToDataURL(images2[i], function(dataURL){
+			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		});
+		
+	}
+}
+
+function save(){
+	//alert('images1.length = '+images1.length);
+	imag1 = [];
+blobToDataURL(images1[0], function(dataURL){
+	imag1[0]=dataURL;
+	alert(imag1[0]);
+});
+//blobToDataURL(images1[1], function(dataURL){
+//	imag1[1]=dataURL;
+//});
+
+imag2 = [];
+imag2[0] = '0-images2';
+imag2[1] = '1-2images';
+imag2[2]='2-2222im222';
+
+
+
+	$.ajax({
+		type: "POST",
+		data: {images1:imag2[0]},
+		url: "save_images.php",
+		success: function(msg){
+		alert(msg);
+		}
+	});
+
+
 }

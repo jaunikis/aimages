@@ -190,27 +190,7 @@ function dataURLtoBlob(dataurl) {
     return new Blob([u8arr], {type:mime});
 }
 
-function save(){
-	$("ol").empty();
-	//alert(images1.length);
-	for(i=0;i<images1.length;i++){
-		blobToDataURL(images1[i], function(dataURL){
-			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
-		});
-		
-	}
-}
 
-function save2(){
-	$("ol").empty();
-	//alert(images1.length);
-	for(i=0;i<images2.length;i++){
-		blobToDataURL(images2[i], function(dataURL){
-			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
-		});
-		
-	}
-}
 
 function getOrientation(file, callback) {
   var reader = new FileReader();
