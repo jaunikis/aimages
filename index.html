@@ -6,17 +6,20 @@
 <link href="/easyads/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+	<form id="forma" action="save_add.php" method="POST">
 	<input id="inputFile" style="display:none;" type="file" onchange="resize(this)" class="filestyle" accept="image/jpeg, image/png" multiple />
 	<div id="images-div" class="images-div">
 		<div class="img-div">
 			<div id="inputFile" onclick="$('#inputFile').click();" class="mygt mygt-center"><span class="symb">+</span></div>
 		</div>
 	</div>
-	<button onclick="show1()"> Show images1 </button>
-	<button onclick="show2()"> Show images2 </button>
-	<button onclick="save()"> Save </button>
+	<p>Text: <input name="txt" type="text"></input></p>
+	<button type="button" onclick="show1()"> Show images1 </button>
+	<button type="button" onclick="show2()"> Show images2 </button>
+	<button type="button" onclick="save()"> Save </button>
 	<ol></ol>
-
+	</form>
+	
 <script src="/aimages/js/js.js"></script>
 <script src="/aimages/js/image_resize.js"></script>
 </body>

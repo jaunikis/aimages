@@ -176,7 +176,7 @@ function show2(){
 function save(){
 	if (typeof cover == 'undefined'){cover=0;} 
 	//alert(cover);
-	//alert('images1.length = '+images1.length);
+	//alert(images1[0]);
 //	imag1 = [];
 //blobToDataURL(images2[0], function(dataURL){
 //	
@@ -196,7 +196,8 @@ $.ajax({
 		data: {images1:images1,images2:images2,cover:cover},
 		url: "save_images.php",
 		success: function(msg){
-		alert(msg);
+			document.getElementById("forma").submit();
+			//alert(msg);
 		}
 	});
 
