@@ -75,8 +75,13 @@ function resize(th){
 					  ctx.restore();
 				}//else
 					
+					var dataURL = canvas.toDataURL();
+						//images1.push(dataURL);
 					canvas.toBlob(function (blob) {
-						images1.push(blob);
+						blobToDataURL(blob, function(dataURL){
+							images1.push(dataURL);
+						});
+						//images1.push(blob);
 						//alert(images1[i-1]);
 					}, 'image/jpeg', 0.8);
 				
@@ -125,7 +130,10 @@ function resize(th){
 			  		
 			
 			canvas2.toBlob(function (blob) {
-				images2.push(blob);
+				blobToDataURL(blob, function(dataURL){
+							images2.push(dataURL);
+						});
+				//images2.push(blob);
 				//alert(blob);
 			}, 'image/jpeg', 0.8);
 			

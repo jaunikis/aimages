@@ -5,6 +5,11 @@ function click_cover(th){
 	gran=th.parentElement.parentElement;
 	childs=gran.children;
 	
+	var num=par.previousSibling;
+	cover = 0;
+	while(num.className != null ){cover++;num=num.previousSibling;}
+	//alert(cover);
+	
 	//perstumia cover i pirma vieta
 	//gran.insertBefore(par,gran.firstChild);
 	
@@ -65,10 +70,9 @@ function click_rotate(th){
 	
 	//rotate image1
 	canvas = document.createElement('canvas');
-	blobToDataURL(images2[i], function(dataurl){
-		//alert(dataurl);
+	
 		var img=document.createElement('img');
-			img.src=dataurl;
+			img.src=images2[i];
 			img.onload=function(){
 			//document.body.appendChild(img);
 			var	width = img.width;
@@ -99,8 +103,9 @@ function click_rotate(th){
 		//document.body.appendChild(canvas);
 		
 		canvas.toBlob(function (blob) {
-				images1[i]=blob;
-				blobToDataURL(images1[i], function(dataURL){
+				//images1[i]=blob;
+				blobToDataURL(blob, function(dataURL){
+					images1[i]=dataURL;
 					var pvs=par.firstChild;
 					pvs.src=dataURL;
 					//$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
@@ -108,15 +113,14 @@ function click_rotate(th){
 				});
 			}, 'image/jpeg', 0.8);
 	};//image onload
-			});
+			
 	
 	
 	//rotate image2
 	canvas2 = document.createElement('canvas');
-	blobToDataURL(images2[i], function(dataurl){
-		//alert(dataurl);
+	
 		var img=document.createElement('img');
-			img.src=dataurl;
+			img.src=images2[i];
 			img.onload=function(){
 			//document.body.appendChild(img);
 			//alert(img.width);
@@ -133,16 +137,17 @@ function click_rotate(th){
 		//document.body.appendChild(canvas2);
 		
 		canvas2.toBlob(function (blob) {
-				images2[i]=blob;
-			//	blobToDataURL(images2[i], function(dataURL){
+				//images2[i]=blob;
+				blobToDataURL(blob, function(dataURL){		
+					images2[i]=dataURL;
 			//		var pvs=par.firstChild;
 			//		pvs.src=dataURL;
 					//$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
 					//alert(par.firstChild.className)
-			//	});
+				});
 			}, 'image/jpeg', 0.8);
 	};//image onload
-			});	
+			
 }
 
 
@@ -150,10 +155,10 @@ function show1(){
 	$("ol").empty();
 	//alert(images1.length);
 	for(i=0;i<images1.length;i++){
-		blobToDataURL(images1[i], function(dataURL){
-			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
-		});
-		
+		//blobToDataURL(images1[i], function(dataURL){
+		//	$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		//});
+		$("ol").append('<li><img src="'+images1[i]+'" width="100"></img></li>');
 	}
 }
 
@@ -161,39 +166,38 @@ function show2(){
 	$("ol").empty();
 	//alert(images1.length);
 	for(i=0;i<images2.length;i++){
-		blobToDataURL(images2[i], function(dataURL){
-			$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
-		});
-		
+		//blobToDataURL(images2[i], function(dataURL){
+		//	$("ol").append('<li><img src="'+dataURL+'" width="100"></img></li>');
+		//});
+		$("ol").append('<li><img src="'+images2[i]+'" width="100"></img></li>');
 	}
 }
 
 function save(){
+	if (typeof cover == 'undefined'){cover=0;} 
+	//alert(cover);
 	//alert('images1.length = '+images1.length);
-	imag1 = [];
-blobToDataURL(images1[0], function(dataURL){
-	imag1[0]=dataURL;
-	alert(imag1[0]);
-});
+//	imag1 = [];
+//blobToDataURL(images2[0], function(dataURL){
+//	
+//});
+
 //blobToDataURL(images1[1], function(dataURL){
 //	imag1[1]=dataURL;
 //});
 
-imag2 = [];
-imag2[0] = '0-images2';
-imag2[1] = '1-2images';
-imag2[2]='2-2222im222';
+//imag2 = [];
+//imag2[0] = '0-images2';
+//imag2[1] = '1-2images';
+//imag2[2]='2-2222im222';
 
-
-
-	$.ajax({
+$.ajax({
 		type: "POST",
-		data: {images1:imag2[0]},
+		data: {images1:images1,images2:images2,cover:cover},
 		url: "save_images.php",
 		success: function(msg){
 		alert(msg);
 		}
 	});
-
 
 }
