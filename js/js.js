@@ -176,10 +176,10 @@ function show2(){
 function save(){
 	if (typeof cover == 'undefined'){cover=0;} 
 	//alert(cover);
-	alert(images1[0]);
-	var img=document.createElement('img');
-			img.src=images1[0];
-			document.body.appendChild(img);
+	//alert(images1[0]);
+	//var img=document.createElement('img');
+	//		img.src=images1[0];
+	//		document.body.appendChild(img);
 //	imag1 = [];
 //blobToDataURL(images2[0], function(dataURL){
 //	
