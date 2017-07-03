@@ -16,8 +16,8 @@ $cover=$_POST['cover'];
 		$x='';
 		if($i==$cover){$x='cover';}
 		
-		$img1=$images2[$i];
-		$ad_id=4;
+		$img1=$images1[$i];
+		$ad_id=5;
 		$sql = "INSERT INTO test (images1,ad_id,cover) VALUES ('$img1','$ad_id','$x')";
 		$result=sqlconnect($sql);
 		$_SESSION['last_id']=$result;

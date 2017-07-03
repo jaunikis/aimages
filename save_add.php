@@ -10,7 +10,6 @@ session_start();
  
  $sql="SELECT * FROM test WHERE ad_id=$ad_id";
  $result=sqlconnect($sql);
- $x='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==';
  while ($row = $result->fetch_assoc()) {
 				$id=$row['id'];
 				$images1=$row['images1'];
